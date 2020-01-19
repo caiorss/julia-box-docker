@@ -28,12 +28,11 @@ RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add LibPQ      ;precompile"); usin
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add SQLite     ;precompile"); using SQLite'
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add XLSX       ;precompile"); using XLSX'
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Distributions  ;precompile"); using Distributions'
+# Symbolic Math Package 
+RUN julia -e 'import Pkg; Pkg.add("SymPy"); using SymPy'
+# C++ Wrap 
+RUN julia -e 'import Pkg; Pkg.add("CxxWrap"); using CxxWrap'
 
-# RUN  julia -e "Pkg.add(\"Plots\")" && \
-#      julia -e "Pkg.add(\"PyPlot\")" && \
-#      julia -e "Pkg.add(\"IJulia\")" && \
-#      julia -e "Pkg.add(\"DataFrames\")" && \
-#      julia -e "Pkg.add(\"Distributions\")" && \
 
 ENV LANG en_US.utf8
 # Docker Entry Point
