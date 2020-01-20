@@ -28,6 +28,9 @@ RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add LibPQ      ;precompile"); usin
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add SQLite     ;precompile"); using SQLite'
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add XLSX       ;precompile"); using XLSX'
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Distributions  ;precompile"); using Distributions'
+
+# Literate Programming (Report)
+RUN julia -e 'import Pkg; Pkg.add("Weave"); using Weave'
 # Symbolic Math Package 
 RUN julia -e 'import Pkg; Pkg.add("SymPy"); using SymPy'
 # C++ Wrap 
