@@ -53,7 +53,13 @@ RUN  apt-get install -y latex2html     && \
     apt-get install -y texlive-generic-recommended
 
 #======= Entry Point ==============================#
-USER eniac 
+
+# Change default-user to a non-privileged one 
+USER eniac
+
+# Set bash prompt 
+ENV PS1=" >>>"
+ARG PS1=" >>>"
 
 ENV LANG en_US.utf8
 # Docker Entry Point
