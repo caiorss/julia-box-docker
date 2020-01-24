@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 DOCKER_IMAGE_NAME=julia-box-shell
 DOCKER_ARGUMENTS="${@:2}"
-
+DOCKER_USER=eniac 
 
 case  "$1" in
 
@@ -59,13 +59,13 @@ EOF
        -v /tmp/.X11-unix:/tmp/.X11-unix \
        -v $HOME/.Xauthority:/root/.Xauthority \
        --net=host $DOCKER_IMAGE_NAME \
-       /root/.julia/conda/3/bin/python  /root/.julia/conda/3/bin/jupyter-notebook --allow-root
+       /home/$DOCKER_USER/.julia/conda/3/bin/python  /home/$DOCKER_USER/.julia/conda/3/bin/jupyter-notebook 
 
         xhost -
         ;;
 
     # Open bash Unix login shell 
-    bash)
+    sh|bash)
         xhost +local:docker 2> /dev/null 
         
         docker run -it -e DISPLAY \
