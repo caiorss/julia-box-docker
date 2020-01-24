@@ -5,6 +5,8 @@ FROM docker.io/julia:latest
 
 RUN echo "Updating Packages" && apt-get update
 
+RUN echo " =>>> Creating user: " && useradd -d /home/eniac -m eniac -s /bin/bash
+
 RUN echo "Installing Components ...." && \
     apt-get install -y sqlite         && \
     apt-get install -y git            && \
@@ -14,6 +16,8 @@ RUN echo "Installing Components ...." && \
     apt-get install -y hdf5-tools     && \
     apt-get install -y qtbase5-dev    && \
     apt-get install -y x11-apps
+
+USER eniac 
 
 RUN julia -e 'import Pkg; Pkg.add("InstantiateFromURL")'
 RUN julia -e 'using Pkg; Pkg.add("Plots");   Pkg.REPLMode.pkgstr("add Plots     ;precompile");using Plots'
@@ -36,6 +40,20 @@ RUN julia -e 'import Pkg; Pkg.add("SymPy"); using SymPy'
 # C++ Wrap 
 RUN julia -e 'import Pkg; Pkg.add("CxxWrap"); using CxxWrap'
 
+RUN julia -e 'using Pkg; Pkg.add("ZMQ"); Pkg.add("Conda"); import Conda; Conda.add("jupyter")'
+
+# ========= Latex ==================================#
+
+USER root 
+
+RUN  apt-get install -y latex2html     && \
+    apt-get install -y texlive-latex-base && \
+    apt-get install -y texlive-latex-base && \
+    apt-get install -y texlive-lang-english && \
+    apt-get install -y texlive-generic-recommended
+
+#======= Entry Point ==============================#
+USER eniac 
 
 ENV LANG en_US.utf8
 # Docker Entry Point
