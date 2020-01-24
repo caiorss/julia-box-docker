@@ -131,7 +131,6 @@ STEP 4: Run wrapper script and open Julia shell.
 
 #+END_SRC
 
-
 ** Usage 
 
 Once the docker is buitl, the following functionalities can be used: 
@@ -184,13 +183,26 @@ Once the docker is buitl, the following functionalities can be used:
 #+END_SRC
 
  *Run Jupyter Notebook* (IJulia)
-  + $ ./julia-box-shell.sh jupyter
-  + $ ./julia-box-shell.sh ju 
+
+Start Jupyter Notebook Daemon 
+
+  + $ ./julia-box-shell.sh jupyter start 
+  + $ ./julia-box-shell.sh ju start 
+
+Start Jupyter Notebook Daemon 
+
+  + $ ./julia-box-shell.sh jupyter stop  
+  + $ ./julia-box-shell.sh ju stop 
+
+View Log
+  
+  + $ ./julia-box-shell.sh jupyter log 
+  + $ ./julia-box-shell.sh ju log 
 
 Then open the URL in the web browser (~http://localhost:8888/?token=333....2e885e597195~)
 
 #+BEGIN_SRC sh 
-   $ ./julia-box-shell.sh jupyter
+   $ ./julia-box-shell.sh jupyter start 
    non-network local connections being added to access control list
    [I 13:58:31.621 NotebookApp] Writing notebook server cookie secret to /home/eniac/.local/share/jupyter/runtime/notebook_cookie_secret
    [I 13:58:31.902 NotebookApp] Serving notebooks from local directory: /work
@@ -198,3 +210,4 @@ Then open the URL in the web browser (~http://localhost:8888/?token=333....2e885
    [I 13:58:31.902 NotebookApp] http://localhost:8888/?token=333e54e39f89f685ed35fcf5711e551c64522e885e597195
    ... ... ... ... ... ... 
 #+END_SRC
+
