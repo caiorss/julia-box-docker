@@ -17,6 +17,8 @@ RUN echo "Installing Components ...." && \
     apt-get install -y qtbase5-dev    && \
     apt-get install -y x11-apps
 
+RUN apt-get install -y libreadline-dev 
+
 USER eniac 
 
 RUN julia -e 'import Pkg; Pkg.add("InstantiateFromURL")'
@@ -41,6 +43,19 @@ RUN julia -e 'import Pkg; Pkg.add("SymPy"); using SymPy'
 RUN julia -e 'import Pkg; Pkg.add("CxxWrap"); using CxxWrap'
 
 RUN julia -e 'using Pkg; Pkg.add("ZMQ"); Pkg.add("Conda"); import Conda; Conda.add("jupyter")'
+
+
+# Add new Conda Channel
+RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda  config --add channels r 
+
+# Install Octave (Matlab open source clone)
+RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install  -c conda-forge octave 
+
+# Install R Language 
+RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install -c r r-rcpp
+
+# Install  JupyterLab 
+RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install -c conda-forge jupyterlab 
 
 # ========= Latex ==================================#
 
