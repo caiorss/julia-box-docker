@@ -2,6 +2,7 @@
 DOCKER_IMAGE_NAME=julia-box-shell
 DOCKER_ARGUMENTS="${@:2}"
 DOCKER_USER=eniac
+CONDA_BIN=/home/$DOCKER_USER/.julia/conda/3/bin
 
 case  "$1" in
 
@@ -33,7 +34,7 @@ EOF
         # and enabling displaying GUI - Graphical User Interface (Qt, Gtk ...)
         xhost +local:docker
 
-        docker run -it -e DISPLAY \
+        docker run -it --rm -e DISPLAY \
        --env HOST_UID=$(id -u)   \
        --env HOST_GUID=$(id -g)  \
        -p 8888:8888 \
@@ -46,6 +47,26 @@ EOF
         xhost -
         ;;
 
+    # Jupyter QTConsole 
+    jqc|jupyter-qtconsole)
+
+        # Allow X Server connection from Docker
+        # and enabling displaying GUI - Graphical User Interface (Qt, Gtk ...)
+        xhost +local:docker
+
+        docker run -it --rm --detach -e DISPLAY \
+       --env HOST_UID=$(id -u)   \
+       --env HOST_GUID=$(id -g)  \
+       -p 8888:8888 \
+       -v $PWD:/work \
+       -w /work \
+       -v /tmp/.X11-unix:/tmp/.X11-unix \
+       -v $HOME/.Xauthority:/root/.Xauthority \
+       --net=host $DOCKER_IMAGE_NAME $CONDA_BIN/python $CONDA_BIN/jupyter qtconsole --kernel=julia-1.3
+
+        xhost -
+        ;;
+    
     # Jupyter / IJulia Notebook (Port 8888)
     ju|jupyter)
 
