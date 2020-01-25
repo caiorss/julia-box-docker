@@ -3,6 +3,7 @@ DOCKER_IMAGE_NAME=julia-box-shell
 DOCKER_ARGUMENTS="${@:2}"
 DOCKER_USER=eniac
 CONDA_BIN=/home/$DOCKER_USER/.julia/conda/3/bin
+PYTHON=/home/$DOCKER_USER/.julia/conda/3/bin/python
 
 case  "$1" in
 
@@ -62,7 +63,7 @@ EOF
        -w /work \
        -v /tmp/.X11-unix:/tmp/.X11-unix \
        -v $HOME/.Xauthority:/root/.Xauthority \
-       --net=host $DOCKER_IMAGE_NAME $CONDA_BIN/python $CONDA_BIN/jupyter qtconsole --kernel=julia-1.3
+       --net=host $DOCKER_IMAGE_NAME $PYTHON $CONDA_BIN/jupyter qtconsole --kernel=julia-1.3
 
         xhost -
         ;;
@@ -83,7 +84,7 @@ EOF
                        -v /tmp/.X11-unix:/tmp/.X11-unix \
                        -v $HOME/.Xauthority:/root/.Xauthority \
                        --net=host $DOCKER_IMAGE_NAME \
-                       /home/$DOCKER_USER/.julia/conda/3/bin/python  /home/$DOCKER_USER/.julia/conda/3/bin/jupyter-notebook
+                       $PYTHON  /home/$DOCKER_USER/.julia/conda/3/bin/jupyter-notebook
 
                 echo " =>> Type ctrl + C to close logs."
                 echo " =>> Run '$0 jupyter log' to show logs. "
@@ -107,6 +108,47 @@ EOF
 
         ;;
 
+    # Jupyter-lab / IJulia Notebook (Port 8888)
+    jupyter-lab)
+
+        case "$2" in
+
+            # Start jupyter notebook server
+            start)
+                docker run --rm -it --name jupyter-server --detach -e DISPLAY \
+                       --env HOST_UID=$(id -u)   \
+                       --env HOST_GUID=$(id -g)  \
+                       -p 8888:8888 \
+                       -v $PWD:/work \
+                       -w /work \
+                       -v /tmp/.X11-unix:/tmp/.X11-unix \
+                       -v $HOME/.Xauthority:/root/.Xauthority \
+                       --net=host $DOCKER_IMAGE_NAME \
+                       $PYTHON  /home/$DOCKER_USER/.julia/conda/3/bin/jupyter-lab --no-browser
+
+                echo " =>> Type ctrl + C to close logs."
+                echo " =>> Run '$0 jupyter log' to show logs. "
+                docker logs -f jupyter-server
+                ;;
+
+            # Stop server
+            stop)
+                docker stop jupyter-server
+                ;;
+
+            # View log
+            log)
+                docker logs -f jupyter-server
+                ;;
+            *)
+                echo " Usage: $0 jupyter-lab [start | stop | log]"
+                exit 1
+                ;;
+        esac
+
+        ;;
+
+    
     # Open bash Unix login shell
     sh|bash)
         xhost +local:docker 2> /dev/null
@@ -120,6 +162,23 @@ EOF
        -v /tmp/.X11-unix:/tmp/.X11-unix \
        -v $HOME/.Xauthority:/root/.Xauthority \
        --net=host $DOCKER_IMAGE_NAME bash
+
+        xhost -
+        ;;
+
+    # Run octave shell (open source Matlab Clone)
+    octave)
+        xhost +local:docker 2> /dev/null
+        
+        docker run -it -e DISPLAY \
+       --env HOST_UID=$(id -u)   \
+       --env HOST_GUID=$(id -g)  \
+       -p 8888:8888 \
+       -v $PWD:/work \
+       -w /work \
+       -v /tmp/.X11-unix:/tmp/.X11-unix \
+       -v $HOME/.Xauthority:/root/.Xauthority \
+       --net=host $DOCKER_IMAGE_NAME $CONDA_BIN/octave-cli
 
         xhost -
         ;;
