@@ -54,6 +54,9 @@ RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda i
 # Install R Language 
 RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install -c r r-rcpp
 
+# Install R Language Jupyter Kernel
+RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install -c r r-irkernel
+
 # Install  JupyterLab 
 RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install -c conda-forge jupyterlab 
 
