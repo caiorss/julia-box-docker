@@ -57,6 +57,9 @@ RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda i
 # Install  JupyterLab 
 RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install -c conda-forge jupyterlab 
 
+# Install nbconvert
+RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install -c anaconda nbconvert
+
 # ========= Latex ==================================#
 
 USER root 
