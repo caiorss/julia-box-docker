@@ -60,6 +60,9 @@ RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda i
 # Install nbconvert
 RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install -c anaconda nbconvert
 
+# Install Tabulate
+RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install -c conda-forge tabulate
+
 # ========= Latex ==================================#
 
 USER root 
