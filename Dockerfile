@@ -17,9 +17,9 @@ RUN echo "Installing Components ...." && \
     apt-get install -y qtbase5-dev    && \
     apt-get install -y x11-apps
 
-RUN apt-get install -y libreadline-dev 
+RUN apt-get install -y libreadline-dev
 
-USER eniac 
+USER eniac
 
 RUN julia -e 'import Pkg; Pkg.add("InstantiateFromURL")'
 RUN julia -e 'using Pkg; Pkg.add("Plots");   Pkg.REPLMode.pkgstr("add Plots     ;precompile");using Plots'
@@ -34,12 +34,15 @@ RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add LibPQ      ;precompile"); usin
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add SQLite     ;precompile"); using SQLite'
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add XLSX       ;precompile"); using XLSX'
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Distributions  ;precompile"); using Distributions'
+RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Roots  ;precompile"); using Roots'
+
+# RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Maxima  ;precompile"); using Maxima'
 
 # Literate Programming (Report)
 RUN julia -e 'import Pkg; Pkg.add("Weave"); using Weave'
-# Symbolic Math Package 
+# Symbolic Math Package
 RUN julia -e 'import Pkg; Pkg.add("SymPy"); using SymPy'
-# C++ Wrap 
+# C++ Wrap
 RUN julia -e 'import Pkg; Pkg.add("CxxWrap"); using CxxWrap'
 
 RUN julia -e 'using Pkg; Pkg.add("ZMQ"); Pkg.add("Conda"); import Conda; Conda.add("jupyter")'
@@ -47,19 +50,19 @@ RUN julia -e 'using Pkg; Pkg.add("ZMQ"); Pkg.add("Conda"); import Conda; Conda.a
 RUN julia -e 'using Pkg; Pkg.add("Interact"); using Interact'
 
 # Add new Conda Channel
-RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda  config --add channels r 
+RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda  config --add channels r
 
 # Install Octave (Matlab open source clone)
-RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install  -c conda-forge octave 
+RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install  -c conda-forge octave
 
-# Install R Language 
+# Install R Language
 RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install -c r r-rcpp
 
 # Install R Language Jupyter Kernel
 RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install -c r r-irkernel
 
-# Install  JupyterLab 
-RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install -c conda-forge jupyterlab 
+# Install  JupyterLab
+RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install -c conda-forge jupyterlab
 
 # Install nbconvert
 RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install -c anaconda nbconvert
@@ -67,22 +70,31 @@ RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda i
 # Install Tabulate
 RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda install -c conda-forge tabulate
 
+# Jupyter notebook extension which support coding auto-completion based on Deep Learning
+RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/pip install jupyter-tabnine
+
+# Jupyter notebook extension which support coding auto-completion based on Deep Learning
+RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/pip install jupyter-datatables
+
+RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/pip install jupyter-pyfilesystem
+
 # ========= Latex ==================================#
 
-USER root 
+USER root
 
 RUN  apt-get install -y latex2html     && \
     apt-get install -y texlive-latex-base && \
     apt-get install -y texlive-latex-base && \
     apt-get install -y texlive-lang-english && \
+    apt-get install -y wxmaxima && \
     apt-get install -y texlive-generic-recommended
 
 #======= Entry Point ==============================#
 
-# Change default-user to a non-privileged one 
+# Change default-user to a non-privileged one
 USER eniac
 
-# Set bash prompt 
+# Set bash prompt
 ENV PS1=" >>>"
 ARG PS1=" >>>"
 
