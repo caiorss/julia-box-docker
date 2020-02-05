@@ -14,17 +14,29 @@ case  "$1" in
 Usage: $0 [COMMAND] [ARGUMENTS] ...
 
     Show this help text
-  => \$ $0 help
-  => \$ $0 h
+     => \$ $0 help
+     => \$ $0 h
 
     Open Julia interactive REPL
-  => \$ $0 julia
-  => \$ $0 jl
+     => \$ $0 julia
+     => \$ $0 jl
 
-    Open Jupyter Notebook with IJulia
-  => \$ $0 jupyter
-  => \$ $0 ju
+    Open Jupyter Notebook (IJulia)
+     => \$ $0 jupyter
+     => \$ $0 ju
 
+    Open Jupyter-Lab  Notebook (IJulia)
+     => \$ $0 jupyter-lab 
+
+    Open Jupyter QtConsole (IJulia)
+     => \$ $0 jupyter
+     => \$ $0 ju
+
+    Open Jupyter QtConsole (IPython)
+     => \$ $0 qtconsole 
+
+   Open Jupyter Octave (Matlab Clone) REPL
+     => \$ $0 octave 
 EOF
         ;;
 
@@ -67,6 +79,26 @@ EOF
 
         xhost -
         ;;
+
+    qtconsole)
+
+        # Allow X Server connection from Docker
+        # and enabling displaying GUI - Graphical User Interface (Qt, Gtk ...)
+        xhost +local:docker
+
+        docker run -it --rm --detach -e DISPLAY \
+       --env HOST_UID=$(id -u)   \
+       --env HOST_GUID=$(id -g)  \
+       -p 8888:8888 \
+       -v $PWD:/work \
+       -w /work \
+       -v /tmp/.X11-unix:/tmp/.X11-unix \
+       -v $HOME/.Xauthority:/root/.Xauthority \
+       --net=host $DOCKER_IMAGE_NAME $PYTHON $CONDA_BIN/jupyter qtconsole
+
+        xhost -
+        ;;
+        
     
     # Jupyter / IJulia Notebook (Port 8888)
     ju|jupyter)
