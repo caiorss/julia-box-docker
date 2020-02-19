@@ -59,6 +59,15 @@ RUN julia -e 'using Pkg; Pkg.add("Interact"); using Interact'
 
 RUN julia -e 'using Pkg; Pkg.add("OhMyREPL"); using OhMyREPL'
 
+# Install Debuggers
+RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Debugger  ;precompile"); using Debugger'
+# See: https://github.com/timholy/Rebugger.jl
+RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Rebugger  ;precompile"); using Rebugger'
+# See: https://github.com/oxinabox/MagneticReadHead.jl
+RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add MagneticReadHead ;precompile"); using MagneticReadHead'
+
+
+
 # Add new Conda Channel
 RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda  config --add channels r
 
