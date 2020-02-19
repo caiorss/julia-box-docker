@@ -57,6 +57,8 @@ RUN julia -e 'using Pkg; Pkg.add("ZMQ"); Pkg.add("Conda"); import Conda; Conda.a
 
 RUN julia -e 'using Pkg; Pkg.add("Interact"); using Interact'
 
+RUN julia -e 'using Pkg; Pkg.add("OhMyREPL"); using OhMyREPL'
+
 # Add new Conda Channel
 RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/conda  config --add channels r
 
