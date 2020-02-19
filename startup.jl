@@ -63,6 +63,9 @@ end
 # See: https://github.com/KristofferC/OhMyREPL.jl
 @eval using OhMyREPL
 
+# Use: the command @enter function(arg0, arg1, ... argnN-1) for debugging.
+@eval using Debugger
+
 # Change default precision for 5 digits
 @format_5f
 
