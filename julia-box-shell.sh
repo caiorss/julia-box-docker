@@ -5,6 +5,10 @@ DOCKER_USER=eniac
 CONDA_BIN=/home/$DOCKER_USER/.julia/conda/3/bin
 PYTHON=/home/$DOCKER_USER/.julia/conda/3/bin/python
 
+HISTORY_FILE=$HOME/.julia_repl_history.jl
+
+touch $HISTORY_FILE 
+
 case  "$1" in
 
     h|help)
@@ -55,8 +59,8 @@ EOF
        -w /work \
        -v /tmp/.X11-unix:/tmp/.X11-unix \
        -v $HOME/.Xauthority:/root/.Xauthority \
+       -v $HISTORY_FILE:/home/eniac/.julia/logs/repl_history.jl \
        --net=host $DOCKER_IMAGE_NAME julia $DOCKER_ARGUMENTS
-
         xhost -
         ;;
 
@@ -80,13 +84,12 @@ EOF
         xhost -
         ;;
 
-    qtconsole)
-
+    ipy|ipython)
         # Allow X Server connection from Docker
         # and enabling displaying GUI - Graphical User Interface (Qt, Gtk ...)
         xhost +local:docker
 
-        docker run -it --rm --detach -e DISPLAY \
+        docker run -it --rm  -e DISPLAY \
        --env HOST_UID=$(id -u)   \
        --env HOST_GUID=$(id -g)  \
        -p 8888:8888 \
@@ -94,7 +97,7 @@ EOF
        -w /work \
        -v /tmp/.X11-unix:/tmp/.X11-unix \
        -v $HOME/.Xauthority:/root/.Xauthority \
-       --net=host $DOCKER_IMAGE_NAME $PYTHON $CONDA_BIN/jupyter qtconsole
+       --net=host $DOCKER_IMAGE_NAME $PYTHON $CONDA_BIN/ipython 
 
         xhost -
         ;;
