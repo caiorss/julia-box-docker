@@ -15,7 +15,8 @@ RUN echo "Installing Components ...." && \
     apt-get install -y gfortran       && \
     apt-get install -y hdf5-tools     && \
     apt-get install -y qtbase5-dev    && \
-    apt-get install -y x11-apps
+    apt-get install -y x11-apps       && \
+    apt-get install -y build-essential
 
 RUN apt-get install -y libreadline-dev
 
@@ -35,6 +36,10 @@ RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add SQLite     ;precompile"); usin
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add XLSX       ;precompile"); using XLSX'
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Distributions  ;precompile"); using Distributions'
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Roots  ;precompile"); using Roots'
+
+# Add packages for interfacing C++
+RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Cxx  ;precompile"); using Cxx'
+RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add CxxWrap  ;precompile"); using CxxWrap'
 
 # RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Maxima  ;precompile"); using Maxima'
 
