@@ -41,6 +41,9 @@ RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Roots  ;precompile"); using Ro
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Cxx  ;precompile"); using Cxx'
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add CxxWrap  ;precompile"); using CxxWrap'
 
+# Add package for Automatic Differentiation (Dual Numbers)
+RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add HyperDualNumbers  ;precompile"); using HyperDualNumbers'
+
 # RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Maxima  ;precompile"); using Maxima'
 
 # Literate Programming (Report)
