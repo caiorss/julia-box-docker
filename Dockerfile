@@ -37,11 +37,11 @@ RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add XLSX       ;precompile"); usin
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Distributions  ;precompile"); using Distributions'
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Roots  ;precompile"); using Roots'
 
-# Add packages for interfacing C++
+# Add packages for interfacing C++ 
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Cxx  ;precompile"); using Cxx'
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add CxxWrap  ;precompile"); using CxxWrap'
 
-# Add package for Automatic Differentiation (Dual Numbers)
+# Add package for Automatic Differentiation (Dual Numbers) 
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add HyperDualNumbers  ;precompile"); using HyperDualNumbers'
 
 # RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Maxima  ;precompile"); using Maxima'
@@ -100,6 +100,9 @@ RUN  apt-get install -y latex2html     && \
     apt-get install -y texlive-generic-recommended
 
 #======= Entry Point ==============================#
+
+# Copy Julia configuration file to Docker.
+COPY ./startup.jl /home/eniac/.julia/config/startup.jl
 
 # Change default-user to a non-privileged one
 USER eniac
