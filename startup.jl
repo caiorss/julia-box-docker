@@ -58,6 +58,43 @@ macro format_5g()
 end
 
 
+macro symbolchar_table()
+     symbols = [
+              ("÷", "\\div - Division")
+	      ("∑", "\\sum  - Summation operator")
+	      ("√", "\\sqrt - Square root operator")
+	      ("∇", "\\nabla - gradient operator")
+	      ("∂", "\\partial - Partial derivate")
+	      ("ℒ", "Laplace transform")
+	      ("∞", "Infinite")
+	      ("- ", "-")
+	      ("ϵ", "\\epsilon")
+	      ("π", "\\pi")
+	      ("Π", "\\Pi")
+	      ("λ", "\\lambda")
+	      ("Λ", "\\Lambda")
+	      ("δ", "\\delta")
+              ("Δ", "\\Delta")
+              ("α", "\\alpha")
+	      ("γ", "\\gama" )
+	      ("Γ", "\\Gama" )
+	      ("ζ", "\\zeta")
+	      ("ω", "\\omega")
+	      ("Ω", "\\Omega")
+	      ("μ", "\\mu")
+	      ("τ", "\\tau")
+	      ("ρ", "\\rho")
+	      ("θ", "\\theta")
+	      ("ι", "\\iota")
+	      ("κ", "\\kapa")
+           ]
+   
+   for (sym, command) in symbols
+      println("\t$sym\t$command")
+   end  
+end
+
+
 #=========== Initialization =======================#
 
 # See: https://github.com/KristofferC/OhMyREPL.jl
