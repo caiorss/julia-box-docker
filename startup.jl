@@ -60,13 +60,19 @@ end
 
 macro symbolchar_table()
      symbols = [
-              ("÷", "\\div - Division")
+	      ("÷", "\\div - Division")
+	      ("→", "Arrow right")
 	      ("∑", "\\sum  - Summation operator")
 	      ("√", "\\sqrt - Square root operator")
 	      ("∇", "\\nabla - gradient operator")
 	      ("∂", "\\partial - Partial derivate")
 	      ("ℒ", "Laplace transform")
 	      ("∞", "Infinite")
+	      ("⍝", "APL - Comment")
+	      ("⍋", "APL Symbol")
+	      ("⍒", "APL Symbol")
+	      ("⌾", "APL Circle jot")
+	      ("⍟", "APL Circle star")
 	      ("- ", "-")
 	      ("ϵ", "\\epsilon")
 	      ("π", "\\pi")
@@ -87,8 +93,10 @@ macro symbolchar_table()
 	      ("θ", "\\theta")
 	      ("ι", "\\iota")
 	      ("κ", "\\kapa")
+	      ("σ", "\\sigma")
+	      ("Σ", "\\Sigma")	      
            ]
-   
+   println(" See: https://docs.julialang.org/en/v1/manual/unicode-input/")
    for (sym, command) in symbols
       println("\t$sym\t$command")
    end  
