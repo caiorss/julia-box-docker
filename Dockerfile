@@ -97,6 +97,10 @@ RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/pip ins
 
 RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/pip install jupyter-pyfilesystem
 
+# Install Python Prompt Toolkit
+RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/pip install ptpython
+
+
 # ========= Latex ==================================#
 
 USER root
@@ -112,6 +116,9 @@ RUN  apt-get install -y latex2html     && \
 
 # Copy Julia configuration file to Docker.
 COPY ./startup.jl /home/eniac/.julia/config/startup.jl
+
+# Copy IPython configuration file
+COPY ./ipython_profile.py /home/eniac/
 
 # Change default-user to a non-privileged one
 USER eniac
