@@ -37,6 +37,14 @@ RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add XLSX       ;precompile"); usin
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Distributions  ;precompile"); using Distributions'
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Roots  ;precompile"); using Roots'
 
+# Machine Learning and statiscs packages 
+RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add RDatasets  ;precompile"); using RDatasets'
+RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add DecisionTree  ;precompile"); using DecisionTree'
+RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add MLBase  ;precompile"); using MLBase'
+RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add StatsBase  ;precompile"); using StatsBase'
+RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add TensorFlow  ;precompile"); using TensorFlow'
+
+
 # Add packages for interfacing C++ 
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Cxx  ;precompile"); using Cxx'
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add CxxWrap  ;precompile"); using CxxWrap'
@@ -107,6 +115,12 @@ RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/pip ins
 RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/pip install torch
 RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/pip install pandas
 
+#========== Install R-Language Packages ============#
+
+# RUN /home/eniac/.julia/conda/3/bin/R -e "install.packages('ggplot2')"
+# RUN /home/eniac/.julia/conda/3/bin/R -e "install.packages('tidyverse')"
+# RUN /home/eniac/.julia/conda/3/bin/R -e "install.packages('modelr')"
+# R UN /home/eniac/.julia/conda/3/bin/R -e "install.packages('broom')"
 
 
 # ========= Latex ==================================#
