@@ -1,12 +1,12 @@
 @eval import Pkg
-@eval import Printf 
+@eval import Printf
 
 #=========== Useful Macros ========================#
 
-""" Import package with an alias. 
+""" Import package with an alias.
 
- Examples 
-```julia-repl 
+ Examples
+```julia-repl
 
 julia> @import_as PyPlot py
 PyPlot
@@ -14,9 +14,9 @@ PyPlot
 julia> x = -5:1:5
 -5:1:5
 
-julia> py.plot(x, exp.(x)) 
+julia> py.plot(x, exp.(x))
 
-```  
+```
 
 """
 macro import_as(mod, alias)
@@ -66,7 +66,9 @@ macro symbolchar_table()
 	      ("√", "\\sqrt - Square root operator")
 	      ("∇", "\\nabla - gradient operator")
 	      ("∂", "\\partial - Partial derivate")
-	      ("ℒ", "Laplace transform")
+   	      ("ℒ", "Laplace transform")
+              ("∃", "\\exists")
+              ("∀", "\\forall")
 	      ("∞", "Infinite")
 	      ("⍝", "APL - Comment")
 	      ("⍋", "APL Symbol")
@@ -74,6 +76,7 @@ macro symbolchar_table()
 	      ("⌾", "APL Circle jot")
 	      ("⍟", "APL Circle star")
 	      ("- ", "-")
+              ("ℓ", "\\ell")
 	      ("ϵ", "\\epsilon")
 	      ("π", "\\pi")
 	      ("Π", "\\Pi")
@@ -94,12 +97,19 @@ macro symbolchar_table()
 	      ("ι", "\\iota")
 	      ("κ", "\\kapa")
 	      ("σ", "\\sigma")
-	      ("Σ", "\\Sigma")	      
+              ("𝝇", "\\bivarsigma")
+	      ("Σ", "\\Sigma")
+              ("η", "\\eta")
+              ("ν", "\\nu")
+              ("ξ", "\\xi")
+              ("ð", "\\eth")
+              ("ℯ", "\\euler")
+              ("ʃ", "\\esh - Integral")
            ]
    println(" See: https://docs.julialang.org/en/v1/manual/unicode-input/")
    for (sym, command) in symbols
       println("\t$sym\t$command")
-   end  
+   end
 end
 
 
