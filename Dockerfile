@@ -103,6 +103,10 @@ RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/pip ins
 
 # Install Python Prompt Toolkit
 RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/pip install ptpython
+RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/pip install sklearn
+RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/pip install torch
+RUN /home/eniac/.julia/conda/3/bin/python /home/eniac/.julia/conda/3/bin/pip install pandas
+
 
 
 # ========= Latex ==================================#
