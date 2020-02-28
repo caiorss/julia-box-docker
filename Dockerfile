@@ -59,6 +59,10 @@ RUN julia -e 'using Pkg; Pkg.add("Interact"); using Interact'
 
 RUN julia -e 'using Pkg; Pkg.add("OhMyREPL"); using OhMyREPL'
 
+# Install Optimization packages
+RUN julia -e 'using Pkg; Pkg.add("JuMP"); using JuMP'
+RUN julia -e 'using Pkg; Pkg.add("Ipopt"); using Ipopt'
+
 # Install Debuggers
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Debugger  ;precompile"); using Debugger'
 # See: https://github.com/timholy/Rebugger.jl
