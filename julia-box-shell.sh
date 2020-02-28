@@ -218,6 +218,24 @@ EOF
         xhost -
         ;;
 
+        # Run octave shell (open source Matlab Clone)
+    r|rlang|Rlang)
+       xhost +local:docker 2> /dev/null
+        
+        docker run -it -e DISPLAY \
+       --env HOST_UID=$(id -u)   \
+       --env HOST_GUID=$(id -g)  \
+       -p 8888:8888 \
+       -v $PWD:/work \
+       -w /work \
+       -v /tmp/.X11-unix:/tmp/.X11-unix \
+       -v $HOME/.Xauthority:/root/.Xauthority \
+       --net=host $DOCKER_IMAGE_NAME $CONDA_BIN/R
+
+        xhost -
+        ;;
+
+
     *)
     echo " Error: invalid option. expected $0 [ julia | ijulia | help]"
     exit 1
