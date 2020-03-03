@@ -139,7 +139,7 @@ RUN  apt-get install -y latex2html     && \
     apt-get install -y wxmaxima && \
     apt-get install -y texlive-generic-recommended
 
-RUN  apt-get install -y tmux
+RUN  apt-get install -y tmux 
 
 #======= Entry Point ==============================#
 
@@ -159,5 +159,6 @@ ENV PS1=" >>>"
 ARG PS1=" >>>"
 
 ENV LANG en_US.utf8
+
 # Docker Entry Point
-CMD ["julia"]
+CMD ["tmux", "new", "-s", "mysession", "/usr/local/julia/bin/julia"]
