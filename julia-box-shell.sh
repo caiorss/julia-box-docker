@@ -44,6 +44,18 @@ Usage: $0 [COMMAND] [ARGUMENTS] ...
 EOF
         ;;
 
+    tmux)
+	docker run -it --name jbox \
+	              --env HOST_UID=$(id -u)   \
+		      --env HOST_GUID=$(id -g)  \
+	              --detach -w /work -v $(pwd):/work  \
+		      -w /work -v $PWD:/work \
+		      -v /tmp/.X11-unix:/tmp/.X11-unix \
+		      -v $HOME/.Xauthority:/root/.Xauthority \
+		      -v $HISTORY_FILE:/home/eniac/.julia/logs/repl_history.jl \
+		      julia-box-shell
+	 ;;
+    
     # Julia REPL
     jl|julia)
 
