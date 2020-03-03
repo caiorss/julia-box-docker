@@ -71,6 +71,11 @@ RUN julia -e 'using Pkg; Pkg.add("OhMyREPL"); using OhMyREPL'
 RUN julia -e 'using Pkg; Pkg.add("JuMP"); using JuMP'
 RUN julia -e 'using Pkg; Pkg.add("Ipopt"); using Ipopt'
 
+# Install automatic differentiation packages
+RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add ForwardDiff  ;precompile"); using ForwardDiff'
+RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add TaylorSeries ;precompile"); using TaylorSeries'
+RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add DualNumbers  ;precompile"); using DualNumbers'
+
 # Install Debuggers
 RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Debugger  ;precompile"); using Debugger'
 # See: https://github.com/timholy/Rebugger.jl
