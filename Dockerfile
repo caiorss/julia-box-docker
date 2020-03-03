@@ -149,6 +149,8 @@ COPY ./startup.jl /home/eniac/.julia/config/startup.jl
 # Copy IPython configuration file
 COPY ./ipython_profile.py /home/eniac/
 
+COPY bashrc /home/eniac/.bashrc
+
 # Change default-user to a non-privileged one
 USER eniac
 
