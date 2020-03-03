@@ -139,7 +139,13 @@ RUN  apt-get install -y latex2html     && \
     apt-get install -y wxmaxima && \
     apt-get install -y texlive-generic-recommended
 
-RUN  apt-get install -y tmux 
+RUN  apt-get install -y tmux
+
+
+# Install ATOM Editor and Julia supporting packages
+RUN curl -L -o /tmp/atom.deb "https://atom-installer.github.com/v1.44.0/atom-amd64.deb" && \
+    apt-get update && \
+    apt install -y /tmp/atom.deb
 
 #======= Entry Point ==============================#
 
@@ -153,6 +159,12 @@ COPY bashrc /home/eniac/.bashrc
 
 # Change default-user to a non-privileged one
 USER eniac
+
+RUN apm install atomic-emacs language-julia julia-client ink latex-completions \
+    jupyter-notebook indent-detective tool-bar highlight-selected atom-file-icons
+
+RUN julia -e 'using Pkg; Pkg.REPLMode.pkgstr("add Juno ;precompile"); using Juno'
+
 
 # Set bash prompt
 ENV PS1=" >>>"
